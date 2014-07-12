@@ -51,7 +51,7 @@ SetEmacsMode(toActive) {
 ;is target
 ;==========================
 is_target() {
-  if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main")) { 
+  if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY")) { 
     return false
   }
   return true
@@ -234,16 +234,12 @@ scroll_up() {
 }
 
 scroll_down() {
-        global
+  global
   if is_pre_spc
     Send +{PgDn}
   Else
     Send {PgDn}
   Return
-}
-
-fallbackToDefault() {
-  Send %A_ThisHotkey%
 }
 
 ;==========================
@@ -253,16 +249,22 @@ fallbackToDefault() {
   If IsInEmacsMode()
     is_pre_x = 1
   Else
-    fallbackToDefault()
+    Send %A_ThisHotkey%
   Return
 
 h::
   If (IsInEmacsMode() && is_pre_x) {
-    send ^a
+    Send ^a  ; select all 
     is_pre_x = 0
   }
   Else
-    fallbackToDefault()
+    state := GetKeyState("Capslock", "T") 
+    If(state) {
+      Send +%A_ThisHotkey%  ; send {H}, + for upper case 
+    }
+    Else {
+      Send %A_ThisHotkey%
+    }
   Return
 
 ^f::
@@ -283,12 +285,6 @@ h::
 ^d::
   If IsInEmacsMode()
     delete_char()
-  Else
-    Send %A_ThisHotkey%
-  Return
-^h::
-  If IsInEmacsMode()
-    delete_backward_char()
   Else
     Send %A_ThisHotkey%
   Return
