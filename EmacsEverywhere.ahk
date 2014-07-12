@@ -242,6 +242,16 @@ scroll_down() {
   Return
 }
 
+singleLetterFallbackToDefault() {
+  state := GetKeyState("Capslock", "T") 
+  If(state) {
+    Send +%A_ThisHotkey%  ; + for upper case 
+  }
+  Else {
+    Send %A_ThisHotkey%
+  }
+}
+
 ;==========================
 ;Keybindings
 ;==========================
@@ -258,13 +268,7 @@ h::
     is_pre_x = 0
   }
   Else
-    state := GetKeyState("Capslock", "T") 
-    If(state) {
-      Send +%A_ThisHotkey%  ; send {H}, + for upper case 
-    }
-    Else {
-      Send %A_ThisHotkey%
-    }
+    singleLetterFallbackToDefault()
   Return
 
 ^f::
