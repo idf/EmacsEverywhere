@@ -26,7 +26,16 @@ is_pre_x = 0
 is_pre_spc = 0
 EmacsModeStat := false
 SetEmacsMode(false)
+;==========================
+;Timer
+;==========================
+#Persistent
+SetTimer, Message, 1500
+return
 
+Message:
+  global is_pre_x = 0
+  return 
 
 ;==========================
 ;Emacs mode toggle
@@ -49,6 +58,7 @@ SetEmacsMode(toActive) {
 
 ;==========================
 ;is target
+; WinActive("ahk_class Chrome_WidgetWin_1") ||
 ;==========================
 is_target() {
   if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY")) { 
@@ -257,7 +267,7 @@ singleLetterFallbackToDefault() {
 ;==========================
 ^x::
   If IsInEmacsMode()
-    is_pre_x = 1
+    global is_pre_x = 1
   Else
     Send %A_ThisHotkey%
   Return
@@ -265,7 +275,7 @@ singleLetterFallbackToDefault() {
 h::
   If (IsInEmacsMode() && is_pre_x) {
     Send ^a  ; select all 
-    is_pre_x = 0
+    global is_pre_x = 0
   }
   Else
     singleLetterFallbackToDefault()
@@ -275,7 +285,7 @@ h::
   If IsInEmacsMode() {
     If is_pre_x {
       Send ^o
-      is_pre_x = 0
+      global is_pre_x = 0
     } Else {
       if is_pre_spc
         Send +{Right}
