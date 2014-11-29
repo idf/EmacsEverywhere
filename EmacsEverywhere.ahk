@@ -27,13 +27,10 @@ is_pre_spc = 0
 EmacsModeStat := false
 SetEmacsMode(false)
 ;==========================
-;Timer
+;Timer Subroutine
 ;==========================
-#Persistent
-SetTimer, Message, 1500
-return
-
-Message:
+KeyX:
+  SetTimer, KeyX, off
   global is_pre_x = 0
   return 
 
@@ -266,8 +263,10 @@ singleLetterFallbackToDefault() {
 ;Keybindings
 ;==========================
 ^x::
-  If IsInEmacsMode()
+  If IsInEmacsMode() {
     global is_pre_x = 1
+    SetTimer, KeyX, 1000
+  }
   Else
     Send %A_ThisHotkey%
   Return
