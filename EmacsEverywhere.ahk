@@ -58,7 +58,10 @@ SetEmacsMode(toActive) {
 ; WinActive("ahk_class Chrome_WidgetWin_1") ||
 ;==========================
 is_target() {
-  if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY")) { 
+  if(WinActive "MATLAB R2014b ahk_class SunAwtFrame") {
+    return true
+  }
+  if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame")) { 
     return false
   }
   return true
