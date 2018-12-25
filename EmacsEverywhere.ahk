@@ -512,3 +512,5 @@ $!d::SendCommand("!d","^+{Right}","{Delete}")
 !s::Send {LCtrl Down}{s}{LCtrl Up}
 !z::Send {LCtrl Down}{z}{LCtrl Up}
 !r::Send {LCtrl Down}{r}{LCtrl Up}
+!LButton::Send {LCtrl Down}{LButton}{LCtrl Up}
+!RButton::Send {LCtrl Down}{RButton}{LCtrl Up}
