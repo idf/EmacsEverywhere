@@ -4,7 +4,7 @@
 
 ## Environment
 * Keyboard: US Keyboard.
-* Platform: WinXP/Vista/Win7/Win8/Win8.1.
+* Platform: WinXP/Vista/Win7/Win8/Win8/Win10.
 
 ## Requirement
 * AutoHotkey V1.x.
