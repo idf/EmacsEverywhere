@@ -1,6 +1,6 @@
 ﻿# Emacs Everywhere
 * Provides an Emacs-like keybinding emulation mode on everyone on Windows machine.
-* This emulation mode can be toggled on and off using the (ctrl + CapsLock) key.
+* This emulation mode can be toggled on and off using the (ctrl + \`) key.
 
 ## Environment
 * Keyboard: US Keyboard.
@@ -13,7 +13,7 @@
 * Download and install [AutoHotKey](http://www.autohotkey.com).
 * Download this source and put it anywhere you like.
 * Double click the script EmacsEverywhere.ahk file inside.
-* Use (ctrl + CapsLock) to toggle emacs mode. (Customizable).
+* Use (ctrl + \`) to toggle emacs mode. (Customizable).
 
 ## Notice
 * I have commented out some emacs shortcut that you may want to uncomment. 

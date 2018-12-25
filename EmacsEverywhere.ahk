@@ -2,10 +2,9 @@
 ; AutoHotkey Version: 1.x
 ; Language:         English
 ; Platform:         WinNT
-; inspirator:  David <tchepak@gmail.com>
 ; Script Function:
 ;   Provides an Emacs-like keybinding emulation mode that can be toggled on and off using
-;   the ctrl+CapsLock key.
+;   the ctrl+` key.
 ;
 
 ;==========================
@@ -37,7 +36,7 @@ KeyX:
 ;==========================
 ;Emacs mode toggle
 ;==========================
-^CapsLock::
+^`::
   SetEmacsMode(!EmacsModeStat)
 return
 
@@ -63,7 +62,7 @@ is_target() {
     return true
   }
   ; for disable 
-  if (WinActive("ahk_class Chrome_WidgetWin_1") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame")) { 
+  if (WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame")) { 
     return false
   }
   return true
@@ -365,12 +364,6 @@ h::
   Else
     Send %A_ThisHotkey%
   Return
-!w::
-  If IsInEmacsMode()
-    kill_ring_save()
-  Else
-    Send %A_ThisHotkey%
-  Return
 ^y::
   If IsInEmacsMode()
     yank()
@@ -382,19 +375,6 @@ h::
     undo()
   Else
     Send %A_ThisHotkey%
-  Return
- 
-;$^{Space}::
-^vk20sc039::
-  If IsInEmacsMode()
-  {
-    If is_pre_spc
-      is_pre_spc = 0
-    Else
-      is_pre_spc = 1
-  }
-  Else
-    Send {CtrlDown}{Space}{CtrlUp}
   Return
 ^@::
   If IsInEmacsMode()
@@ -517,3 +497,17 @@ $!d::SendCommand("!d","^+{Right}","{Delete}")
 ;    Sleep, 60*1000 ; in ms
 ;  }
 ;return
+
+
+;==========================
+; Mac Key bindings
+;==========================
+!w::Send {LCtrl Down}{w}{LCtrl Up}  ; emacs kill_ring_save()
+!t::Send {LCtrl Down}{t}{LCtrl Up}
+!c::Send {LCtrl Down}{c}{LCtrl Up}
+!v::Send {LCtrl Down}{v}{LCtrl Up}
+!l::Send {LCtrl Down}{l}{LCtrl Up}
+!q::Send {LAlt Down}{f4}{LAlt Up}
+!a::Send {LCtrl Down}{a}{LCtrl Up}
+!s::Send {LCtrl Down}{s}{LCtrl Up}
+!z::Send {LCtrl Down}{z}{LCtrl Up}
