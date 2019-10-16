@@ -27,7 +27,6 @@ is_pre_spc = 0
 EmacsModeStat := false
 SetEmacsMode(true)
 
-
 ;==========================
 ;Timer Subroutine
 ;==========================
@@ -265,10 +264,12 @@ scroll_down() {
 
 singleLetterFallbackToDefault() {
   state := GetKeyState("Capslock", "T")
-  If(state) {
+  If(state)
+  {
     Send +%A_ThisHotkey%  ; + for upper case
   }
-  Else {
+  Else
+  {
     StringReplace, hotkey, A_ThisHotkey, >
     Send %hotkey%
   }
@@ -299,7 +300,8 @@ h::
   Return
 
 >^f::
-  If IsInEmacsMode() {
+  If IsInEmacsMode()
+  {
     If is_pre_x {
       Send ^o
       global is_pre_x = 0
@@ -309,9 +311,12 @@ h::
       Else
         Send {Right}
     }
-  } Else
+  }
+  Else
+  {
     StringReplace, hotkey, A_ThisHotkey, >
     Send %hotkey%
+  }
   Return
 
 +>^f::
