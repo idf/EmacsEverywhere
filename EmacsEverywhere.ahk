@@ -66,12 +66,16 @@ SetEmacsMode(toActive) {
 ; WinActive("ahk_class Chrome_WidgetWin_1") ||
 ;==========================
 is_target() {
+  ; for disable
+  if (WinActive("ahk_exe emacs.exe")) {
+    return false
+  }
   ; force enable
-  if(WinActive("ahk_exe rider64.exe")) {
+  if (WinActive("ahk_exe rider64.exe")) {
     return true
   }
   ; for disable
-  if (WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame")) {
+  if (WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame") || WinActive("ahk_class Emacs")) {
     return false
   }
   return true
@@ -268,7 +272,8 @@ singleLetterFallbackToDefault() {
     Send +%A_ThisHotkey%  ; + for upper case
   }
   Else {
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   }
 }
 
@@ -281,7 +286,8 @@ singleLetterFallbackToDefault() {
     SetTimer, KeyX, 1000
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 
 h::
@@ -305,57 +311,66 @@ h::
         Send {Right}
     }
   } Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 
 +>^f::
   If IsInEmacsMode()
       Send +{Right}
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 
 >^d::
   If IsInEmacsMode()
     delete_char()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^k::
   If IsInEmacsMode()
     kill_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^o::
   If IsInEmacsMode()
     open_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^g::
   If IsInEmacsMode()
     quit()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^j::
   If IsInEmacsMode()
     newline_and_indent()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^m::
   If IsInEmacsMode()
     newline()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^i::
   If IsInEmacsMode()
     indent_for_tab_command()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^s::
   If IsInEmacsMode()
@@ -366,31 +381,36 @@ h::
       isearch_forward()
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^r::
   If IsInEmacsMode()
     isearch_backward()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^w::
   If IsInEmacsMode()
     kill_region()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^y::
   If IsInEmacsMode()
     yank()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^/::
   If IsInEmacsMode()
     undo()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^Space::
   If IsInEmacsMode()
@@ -401,13 +421,15 @@ h::
       is_pre_spc = 1
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^a::
   If IsInEmacsMode()
     move_beginning_of_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 +>^a::
   If IsInEmacsMode()
@@ -417,13 +439,15 @@ h::
     is_pre_spc = 0
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^e::
   If IsInEmacsMode()
     move_end_of_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
   If IsInEmacsMode()
   {
@@ -432,13 +456,15 @@ h::
     is_pre_spc = 0
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^p::
   If IsInEmacsMode()
     previous_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 +>^p::
   If IsInEmacsMode()
@@ -448,13 +474,15 @@ h::
     is_pre_spc = 0
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^n::
   If IsInEmacsMode()
     next_line()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 +>^n::
   If IsInEmacsMode()
@@ -464,13 +492,15 @@ h::
     is_pre_spc = 0
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^b::
   If IsInEmacsMode()
     backward_char()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 +>^b::
   If IsInEmacsMode()
@@ -480,13 +510,15 @@ h::
     is_pre_spc = 0
   }
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 >^!w::
   If IsInEmacsMode()
     kill_ring_save()
   Else
-    Send %A_ThisHotkey%
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
   Return
 
 ; page scroll are commented out
