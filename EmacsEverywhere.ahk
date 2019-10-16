@@ -66,14 +66,15 @@ SetEmacsMode(toActive) {
 ; WinActive("ahk_class Chrome_WidgetWin_1") ||
 ;==========================
 is_target() {
-  ; }
+  ; force on for rider (ahk_class is SunAwtFrame)
   if (WinActive("ahk_exe rider64.exe")) {
     return true
   }
-  ; for disable
-  if (WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame") || WinActive("ahk_class VirtualConsoleClass") || WinActive("ahk_class Emacs")) {
+  ; force off for various programs, mainly emacs
+  if (WinActive("ahk_class Emacs") || WinActive("ahk_class Console_2_Main") || WinActive("ahk_class PuTTY") || WinActive("ahk_class SunAwtFrame") || WinActive("ahk_class VirtualConsoleClass")) {
     return false
   }
+  ; default to true
   return true
 }
 
