@@ -449,6 +449,7 @@ h::
     StringReplace, hotkey, A_ThisHotkey, >
     Send %hotkey%
   Return
++>^e::  
   If IsInEmacsMode()
   {
     is_pre_spc = 1
