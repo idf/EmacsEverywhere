@@ -453,7 +453,7 @@ h::
   Else
   {
     StringReplace, hotkey, A_ThisHotkey, >
-    Send %hotkey%
+    Send ^{Space}
   }
   Return
 >^a::
