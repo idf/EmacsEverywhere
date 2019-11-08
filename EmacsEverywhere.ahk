@@ -60,13 +60,22 @@ SetEmacsMode(toActive) {
   Send {Shift Up}
 }
 
+
+;==========================
+; temp 
+;==========================
+>^<^!C::ToggleCapsLock()
+ToggleCapsLock() {
+SetCapsLockState, AlwaysOff ; diable the CapsLock key
+}
+
 ;==========================
 ;is target
 ; WinActive("ahk_class Chrome_WidgetWin_1") ||
 ;==========================
 is_target() {
-  ; force on for rider (ahk_class is SunAwtFrame)
-  if (WinActive("ahk_exe rider64.exe")) {
+  ; force on for rider and clion (ahk_class is SunAwtFrame)
+  if (WinActive("ahk_exe rider64.exe") || WinActive("ahk_exe clion64.exe")) {
     return true
   }
   ; force off for various programs, mainly emacs
@@ -259,6 +268,24 @@ scroll_down() {
     Send +{PgDn}
   Else
     Send {PgDn}
+  Return
+}
+
+backward_word() {
+  global
+  if is_pre_spc
+    Send +^{Left}
+  Else
+    Send ^{Left}
+  Return
+}
+
+forward_word() {
+  global
+  if is_pre_spc
+    Send +^{Right}
+  Else
+    Send ^{Left}
   Return
 }
 
@@ -581,15 +608,69 @@ h::
   If IsInEmacsMode()
    scroll_down()
   Else
-   Send %A_ThisHotkey%
-Return
+  {
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
+  }
+  Return
+
 >^!v::
   If IsInEmacsMode()
    scroll_up()
   Else
-   Send %A_ThisHotkey%
+  {
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
+  }
   Return
 
+>^!f::
+  If IsInEmacsMode()
+   forward_word()
+  Else
+  {
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
+  }
+  Return
+
++>^!f::
+  If IsInEmacsMode()
+  {
+   is_pre_spc=1
+   forward_word()
+   is_pre_spc=0
+  }
+  Else
+  {
+   StringReplace, hotkey, A_ThisHotkey, >
+   Send %hotkey%
+  }
+  Return
+
+>^!b::
+  If IsInEmacsMode()
+    backward_word()
+  Else
+  {
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
+  }
+  Return
+
++>^!b::
+  If IsInEmacsMode()
+  {
+    is_pre_spc = 1
+    backward_word()
+    is_pre_spc = 0
+  }
+  Else
+  {
+    StringReplace, hotkey, A_ThisHotkey, >
+    Send %hotkey%
+  }
+  Return
 
 ;==========================
 ;Original
@@ -613,13 +694,13 @@ SendCommand(emacsKey, translationToWindowsKeystrokes, secondWindowsKeystroke="")
 
 ;$>^!n::SendCommand("!n","^{Down}")
 
-$>^!f::SendCommand("!f","^{Right}")
+;$>^!f::SendCommand("!f","^{Right}")
 
-$+>^!f::SendCommand("+!f","+^{Right}")
+;$+>^!f::SendCommand("+!f","+^{Right}")
 
-$>^!b::SendCommand("!b","^{Left}")
+;$>^!b::SendCommand("!b","^{Left}")
 
-$+>^!b::SendCommand("+!b","+^{Left}")
+;$+>^!b::SendCommand("+!b","+^{Left}")
 
 ;==========================
 ;Page Navigation
