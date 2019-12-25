@@ -23,8 +23,8 @@ disabledIcon := "EmacsEverywhere_off.ico"
 is_pre_x = 0
 ; C-Space status
 is_pre_spc = 0
-EmacsModeStat := false
-SetEmacsMode(false)
+EmacsModeStat := true
+SetEmacsMode(true)
 ;==========================
 ;Timer Subroutine
 ;==========================
